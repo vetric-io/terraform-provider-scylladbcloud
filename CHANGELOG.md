@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.2.0](https://github.com/vetric-io/terraform-provider-scylladbcloud/compare/v1.1.1...v1.2.0) (2025-12-01)
+
+
+### Features
+
+* **ci:** configure terraform registry publishing with gpg signing ([#11](https://github.com/vetric-io/terraform-provider-scylladbcloud/issues/11)) ([912f44e](https://github.com/vetric-io/terraform-provider-scylladbcloud/commit/912f44eb08631e6c4dd2cb3b420e4130c8a6cf0f))
+
 ## [1.1.1](https://github.com/vetric-io/terraform-provider-scylladbcloud/compare/v1.1.0...v1.1.1) (2025-12-01)
 
 
