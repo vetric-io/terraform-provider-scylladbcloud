@@ -12,6 +12,13 @@
 #   feat!: breaking change     -> major version bump (0.1.0 -> 1.0.0)
 #   chore: update deps         -> no release (unless combined with feat/fix)
 #
+# Required:
+#   - vars.G_RELEASES_APP_ID: GitHub App ID
+#   - secrets.G_RELEASES_APP_PRIVATE_KEY_BASE64: GitHub App private key (base64 encoded)
+#
+# Note: A GitHub App token is used instead of GITHUB_TOKEN because tags
+#       created with GITHUB_TOKEN don't trigger other workflows (like release.yml)
+#
 name: release-please
 
 on:
@@ -19,16 +26,27 @@ on:
     branches:
       - main
 
-permissions:
-  contents: write
-  pull-requests: write
-
 jobs:
   release-please:
     runs-on: ubuntu-latest
     steps:
+      - name: Decode the GitHub App Private Key
+        id: decode
+        run: |
+          private_key=$(echo "${{ secrets.G_RELEASES_APP_PRIVATE_KEY_BASE64 }}" | base64 -d | awk 'BEGIN {ORS="\\n"} {print}' | head -c -2) &> /dev/null
+          echo "::add-mask::$private_key"
+          echo "private-key=$private_key" >> "$GITHUB_OUTPUT"
+
+      - name: Generate GitHub App Token
+        id: github-app-token
+        uses: actions/create-github-app-token@v2
+        with:
+          app-id: ${{ vars.G_RELEASES_APP_ID }}
+          private-key: ${{ steps.decode.outputs.private-key }}
+
       - uses: googleapis/release-please-action@v4
         with:
           config-file: release-please-config.json
           manifest-file: .release-please-manifest.json
+          token: ${{ steps.github-app-token.outputs.token }}
 
