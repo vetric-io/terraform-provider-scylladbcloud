@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.1.1](https://github.com/vetric-io/terraform-provider-scylladbcloud/compare/v1.1.0...v1.1.1) (2025-12-01)
+
+
+### Bug Fixes
+
+* **changelog:** correct changelog to only include fork commits ([#9](https://github.com/vetric-io/terraform-provider-scylladbcloud/issues/9)) ([20c6ddb](https://github.com/vetric-io/terraform-provider-scylladbcloud/commit/20c6ddbb76a188b91f5e7b18b76c00eec74636d2))
+
 ## [1.1.0](https://github.com/vetric-io/terraform-provider-scylladbcloud/compare/v1.0.0...v1.1.0) (2025-12-01)
 
 *No user-facing changes in this release (CI/CD improvements only).*
