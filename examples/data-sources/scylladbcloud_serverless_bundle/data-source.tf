@@ -5,5 +5,5 @@ data "scylladbcloud_serverless_bundle" "my" {
 
 output "scylladbcloud_serverless_bundle" {
     sensitive = true
-	value     = data.scylladbcloud_serverless_bundle.example.connection_bundle
+	value     = data.scylladbcloud_serverless_bundle.my.connection_bundle
 }

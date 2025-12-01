@@ -34,7 +34,7 @@ func main() {
 	log.SetFlags(logFlags)
 
 	err = tf5server.Serve(
-		"registry.terraform.io/scylladb/scylladbcloud",
+		"github.com/vetric-io/terraform-provider-scylladbcloud",
 		serverFactory,
 		serveOpts...,
 	)

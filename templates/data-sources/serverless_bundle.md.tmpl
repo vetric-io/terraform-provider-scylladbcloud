@@ -1,11 +1,11 @@
 ---
-page_title: "scylladbcloud_serverless_bundle Data Source - terraform-provider-scylladbcloud"
+page_title: "{{.Name}} {{.Type}} - {{.ProviderName}}"
 subcategory: "Serverless"
 description: |-
   Retrieves the connection bundle for a ScyllaDB Cloud serverless cluster.
 ---
 
-# scylladbcloud_serverless_bundle (Data Source)
+# {{.Name}} ({{.Type}})
 
 ~> **Deprecated:** This data source is deprecated and will be removed in a future release of the provider. Consider using dedicated clusters with the [`scylladbcloud_cluster`](../resources/cluster) resource instead.
 
@@ -13,17 +13,7 @@ Retrieves the connection bundle for a ScyllaDB Cloud serverless cluster. The con
 
 ## Example Usage
 
-```terraform
-# Fetch connection bundle file for serverless cluster identified by 1337.
-data "scylladbcloud_serverless_bundle" "my" {
-	cluster_id = 1337
-}
-
-output "scylladbcloud_serverless_bundle" {
-    sensitive = true
-	value     = data.scylladbcloud_serverless_bundle.my.connection_bundle
-}
-```
+{{ tffile "examples/data-sources/scylladbcloud_serverless_bundle/data-source.tf" }}
 
 ## Argument Reference
 
