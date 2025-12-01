@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.2.1](https://github.com/vetric-io/terraform-provider-scylladbcloud/compare/v1.2.0...v1.2.1) (2025-12-01)
+
+
+### Bug Fixes
+
+* **ci:** use GitHub App token to trigger release workflow ([#13](https://github.com/vetric-io/terraform-provider-scylladbcloud/issues/13)) ([60d621a](https://github.com/vetric-io/terraform-provider-scylladbcloud/commit/60d621a6c85217027467cf200bb8f45b00392da9))
+
 ## [1.2.0](https://github.com/vetric-io/terraform-provider-scylladbcloud/compare/v1.1.1...v1.2.0) (2025-12-01)
 
 
