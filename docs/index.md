@@ -27,27 +27,20 @@ Before using this provider, you must obtain an API token from ScyllaDB Cloud. Se
 
 ### Installation
 
-This provider is distributed via GitHub releases. Download the appropriate binary for your platform from [GitHub Releases](https://github.com/vetric-io/terraform-provider-scylladbcloud/releases) and install it:
-
-```bash
-# Create the plugins directory
-mkdir -p ~/.terraform.d/plugins/github.com/vetric-io/terraform-provider-scylladbcloud/0.0.1/$(uname -s | tr '[:upper:]' '[:lower:]')_$(uname -m)/
-
-# Move the provider binary (adjust version as needed)
-mv terraform-provider-scylladbcloud ~/.terraform.d/plugins/github.com/vetric-io/terraform-provider-scylladbcloud/0.0.1/$(uname -s | tr '[:upper:]' '[:lower:]')_$(uname -m)/
-```
-
-Then add the provider to your Terraform configuration:
+This provider is available on the [Terraform Registry](https://registry.terraform.io/providers/vetric-io/scylladbcloud/latest).
 
 ```terraform
 terraform {
   required_providers {
     scylladbcloud = {
-      source = "github.com/vetric-io/terraform-provider-scylladbcloud"
+      source  = "vetric-io/scylladbcloud"
+      version = "~> 1.0"
     }
   }
 }
 ```
+
+Then run `terraform init` to download and install the provider.
 
 ## Example Usage
 
@@ -55,7 +48,8 @@ terraform {
 terraform {
   required_providers {
     scylladbcloud = {
-      source = "github.com/vetric-io/terraform-provider-scylladbcloud"
+      source  = "vetric-io/scylladbcloud"
+      version = "~> 1.0"
     }
   }
 }
