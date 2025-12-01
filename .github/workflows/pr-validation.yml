@@ -1,0 +1,65 @@
+# Validates that PR titles and commits follow the Conventional Commits format
+# This is required for release-please to correctly determine version bumps
+#
+# Format: <type>[optional scope]: <description>
+#
+# Types: feat, fix, docs, style, refactor, perf, test, build, ci, chore, revert
+#
+name: PR Validation
+
+on:
+  pull_request:
+    types: [opened, edited, synchronize, reopened]
+    branches:
+      - main
+
+jobs:
+  validate-pr-title:
+    name: Validate PR Title
+    runs-on: ubuntu-latest
+    steps:
+      - name: Validate PR title follows Conventional Commits
+        run: |
+          PR_TITLE="${{ github.event.pull_request.title }}"
+          
+          # Conventional Commits regex pattern
+          # Matches: type(optional-scope)!?: description
+          PATTERN="^(feat|fix|docs|style|refactor|perf|test|build|ci|chore|revert)(\([a-z0-9_-]+\))?\!?: [a-z].*$"
+          
+          echo "Validating PR title: $PR_TITLE"
+          echo ""
+          
+          if [[ ! "$PR_TITLE" =~ $PATTERN ]]; then
+            echo "ERROR: PR title does not follow Conventional Commits format."
+            echo ""
+            echo "Expected format: <type>[optional scope]: <description>"
+            echo ""
+            echo "Valid types: feat, fix, docs, style, refactor, perf, test, build, ci, chore, revert"
+            echo ""
+            echo "Examples:"
+            echo "  feat: add new cluster parameter"
+            echo "  fix(vpc): correct peering timeout"
+            echo "  feat!: breaking change to API"
+            echo ""
+            echo "Rules:"
+            echo "  - Type must be lowercase"
+            echo "  - Description must start with lowercase letter"
+            echo "  - Use ! before : for breaking changes"
+            exit 1
+          fi
+          
+          echo "PR title is valid!"
+
+  validate-commits:
+    name: Validate Commit Messages
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      
+      - name: Validate commit messages
+        uses: wagoid/commitlint-github-action@v6
+        with:
+          configFile: .commitlintrc.json
+
