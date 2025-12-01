@@ -32,6 +32,10 @@ jobs:
         with:
           version: v1.62.2
       - run: go test -v -race ./...
+      - name: Verify generated docs are up-to-date
+        run: |
+          go generate ./...
+          git diff --exit-code docs/ || (echo "Docs are out of date. Run 'go generate ./...' and commit the changes." && exit 1)
   test-build:
     strategy:
       matrix:
