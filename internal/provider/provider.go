@@ -36,7 +36,7 @@ func New(context.Context) (*schema.Provider, error) {
 				Type:        schema.TypeString,
 				Optional:    true,
 				Default:     nonempty(envEndpoint(), defaultEndpoint),
-				Description: "URL of the Scylla Cloud endpoint.",
+				Description: "URL of the ScyllaDB Cloud API endpoint. Can also be set via the `SCYLLADB_CLOUD_ENDPOINT` environment variable. Defaults to `https://api.cloud.scylladb.com`.",
 			},
 			"token": {
 				Type:      schema.TypeString,
@@ -53,13 +53,13 @@ func New(context.Context) (*schema.Provider, error) {
 					}
 					return nil
 				},
-				Description: "Bearer token used to authenticate with the API.",
+				Description: "Bearer token used to authenticate with the ScyllaDB Cloud API. Can also be set via the `SCYLLADB_CLOUD_TOKEN` environment variable. See [Obtaining an API Key](https://cloud.docs.scylladb.com/stable/api-docs/api-get-started.html#obtaining-an-api-key-beta) for instructions.",
 			},
 			"metadata": {
 				Type:        schema.TypeBool,
 				Optional:    true,
 				Default:     true,
-				Description: "Whether to preload deployment metadata for the provider.",
+				Description: "Whether to preload cloud provider metadata (regions, instance types, etc.) during provider initialization. Defaults to `true`. Set to `false` only for debugging purposes.",
 			},
 		},
 
