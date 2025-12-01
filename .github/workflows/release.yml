@@ -4,7 +4,12 @@
 # Tags are automatically created by release-please when a Release PR is merged.
 # See release-please.yml for the semantic versioning workflow.
 #
-# Releases are published to GitHub Releases only (not Terraform Registry).
+# Releases are published to GitHub Releases with GPG-signed checksums
+# for Terraform Registry compatibility.
+#
+# Required secrets:
+#   - GPG_PRIVATE_KEY: ASCII-armored GPG private key for signing
+#   - GPG_PASSPHRASE: Passphrase for the GPG key (if any)
 #
 name: release
 on:
@@ -19,13 +24,19 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-      - name: Unshallow
-        run: git fetch --prune --unshallow
+        with:
+          fetch-depth: 0
       - name: Set up Go
         uses: actions/setup-go@v5
         with:
           go-version-file: 'go.mod'
           cache: true
+      - name: Import GPG key
+        uses: crazy-max/ghaction-import-gpg@v6
+        id: import_gpg
+        with:
+          gpg_private_key: ${{ secrets.GPG_PRIVATE_KEY }}
+          passphrase: ${{ secrets.GPG_PASSPHRASE }}
       - name: Run GoReleaser
         uses: goreleaser/goreleaser-action@v6
         with:
@@ -33,3 +44,4 @@ jobs:
           args: release --clean
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GPG_FINGERPRINT: ${{ steps.import_gpg.outputs.fingerprint }}

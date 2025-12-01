@@ -1,5 +1,11 @@
 # Visit https://goreleaser.com for documentation on how to customize this
 # behavior.
+#
+# This configuration is for publishing to Terraform Registry which requires:
+# - GPG signed checksums
+# - Specific archive naming convention
+# - SHA256SUMS file
+#
 version: 2
 before:
   hooks:
@@ -35,8 +41,19 @@ archives:
 checksum:
   name_template: '{{ .ProjectName }}_{{ .Version }}_SHA256SUMS'
   algorithm: sha256
+signs:
+  - artifacts: checksum
+    args:
+      # if you are using this in a GitHub action or some other automated pipeline, you
+      # need to pass the batch flag to indicate its not interactive.
+      - "--batch"
+      - "--local-user"
+      - "{{ .Env.GPG_FINGERPRINT }}"
+      - "--output"
+      - "${signature}"
+      - "--detach-sign"
+      - "${artifact}"
 release:
-  # Release to GitHub only
   github:
     owner: vetric-io
     name: terraform-provider-scylladbcloud

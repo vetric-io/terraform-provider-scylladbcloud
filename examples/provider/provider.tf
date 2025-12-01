@@ -1,7 +1,8 @@
 terraform {
   required_providers {
     scylladbcloud = {
-      source = "github.com/vetric-io/terraform-provider-scylladbcloud"
+      source  = "vetric-io/scylladbcloud"
+      version = "~> 1.0"
     }
   }
 }
