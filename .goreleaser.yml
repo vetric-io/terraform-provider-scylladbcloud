@@ -38,7 +38,7 @@ checksum:
 release:
   # Release to GitHub only
   github:
-    owner: scylladb
+    owner: vetric-io
     name: terraform-provider-scylladbcloud
   # If you want to manually examine the release before its live, uncomment this line:
   # draft: true
