@@ -1,11 +1,11 @@
 ---
-page_title: "scylladbcloud_cql_auth Data Source - terraform-provider-scylladbcloud"
+page_title: "{{.Name}} {{.Type}} - {{.ProviderName}}"
 subcategory: "Authentication"
 description: |-
   Retrieves CQL authentication credentials for connecting to a ScyllaDB Cloud cluster.
 ---
 
-# scylladbcloud_cql_auth (Data Source)
+# {{.Name}} ({{.Type}})
 
 Retrieves CQL (Cassandra Query Language) authentication credentials for connecting to a ScyllaDB Cloud cluster. This data source provides the username, password, and seed node addresses needed to establish a connection to your cluster.
 
@@ -17,26 +17,7 @@ Retrieves CQL (Cassandra Query Language) authentication credentials for connecti
 
 ### Basic Usage
 
-```terraform
-# Fetch credential information for cluster identified by 1337.
-data "scylladbcloud_cql_auth" "example" {
-	cluster_id = 1337
-	datacenter = "AWS_US_EAST_1"
-}
-
-output "scylladbcloud_cql_seeds" {
-	value = data.scylladbcloud_cql_auth.example.seeds
-}
-
-output "scylladbcloud_cql_username" {
-	value = data.scylladbcloud_cql_auth.example.username
-}
-
-output "scylladbcloud_cql_password" {
-    sensitive = true
-	value = data.scylladbcloud_cql_auth.example.password
-}
-```
+{{ tffile "examples/data-sources/scylladbcloud_cql_auth/data-source.tf" }}
 
 ### Using with a Cluster Resource
 
