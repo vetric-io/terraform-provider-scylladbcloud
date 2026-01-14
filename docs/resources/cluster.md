@@ -35,6 +35,10 @@ resource "scylladbcloud_cluster" "example" {
 	
 	# Replication factor (default is 3)
 	replication_factor = 3
+
+	# Ignore drift when cluster is resized outside of Terraform
+	# (e.g., via the ScyllaDB Cloud console)
+	ignore_resize_drift = true
 }
 
 output "scylladbcloud_cluster_id" {
@@ -99,6 +103,27 @@ resource "scylladbcloud_cluster" "alternator" {
 }
 ```
 
+### Cluster with Ignore Resize Drift
+
+Use `ignore_resize_drift` when clusters may be resized outside of Terraform (e.g., via the ScyllaDB Cloud console) and you want to prevent Terraform from detecting drift on `node_count` and `node_type`.
+
+```terraform
+resource "scylladbcloud_cluster" "managed_resize" {
+  name       = "Managed Cluster"
+  cloud      = "AWS"
+  region     = "us-east-1"
+  node_count = 3
+  node_type  = "i3.xlarge"
+  cidr_block = "172.31.0.0/16"
+
+  enable_vpc_peering = true
+  enable_dns         = true
+
+  # Ignore drift when cluster is resized outside of Terraform
+  ignore_resize_drift = true
+}
+```
+
 ## Argument Reference
 
 This resource supports the following arguments:
@@ -129,6 +154,7 @@ This resource supports the following arguments:
   * `forbid_rmw` - Forbid read-modify-write operations
   * `unsafe_rmw` - Allow unsafe read-modify-write operations
 * `byoa_id` - (Optional, Forces new resource) The BYOA (Bring Your Own Account) credential ID. Only applicable for AWS deployments where you want the cluster deployed in your own AWS account.
+* `ignore_resize_drift` - (Optional) When `true`, Terraform will ignore differences in `node_count` and `node_type` between the configuration and the actual cluster state. This is useful when clusters are resized outside of Terraform (e.g., via the ScyllaDB Cloud console) and you want to prevent Terraform from detecting drift. Defaults to `false`.
 
 ### Timeouts
 

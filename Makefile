@@ -20,4 +20,15 @@ lint: $(GOPATH)/bin/golangci-lint
 $(GOPATH)/bin/golangci-lint:
 	curl -sSfL https://raw.githubusercontent.com/golangci/golangci-lint/9f61b0f53f80672872fced07b6874397c3ed197b/install.sh | sh -s -- -b $(GOPATH)/bin v2.7.2
 
-.PHONY: build fmt generate lint
+# Git hooks management using lefthook
+install-hooks:
+	go tool lefthook install
+
+uninstall-hooks:
+	go tool lefthook uninstall
+
+# Run hooks manually without committing
+run-hooks:
+	go tool lefthook run pre-commit
+
+.PHONY: build fmt generate lint install-hooks uninstall-hooks run-hooks

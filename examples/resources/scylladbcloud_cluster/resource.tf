@@ -15,6 +15,10 @@ resource "scylladbcloud_cluster" "example" {
 	
 	# Replication factor (default is 3)
 	replication_factor = 3
+
+	# Ignore drift when cluster is resized outside of Terraform
+	# (e.g., via the ScyllaDB Cloud console)
+	ignore_resize_drift = true
 }
 
 output "scylladbcloud_cluster_id" {

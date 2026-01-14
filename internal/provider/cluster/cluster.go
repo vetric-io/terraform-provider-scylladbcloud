@@ -22,6 +22,16 @@ const (
 	clusterPollInterval    = 10 * time.Second
 )
 
+// suppressResizeDrift suppresses diff for node_count and node_type when ignore_resize_drift is true.
+// This is useful when clusters are resized outside of Terraform (e.g., via the ScyllaDB Cloud console).
+func suppressResizeDrift(k, oldValue, newValue string, d *schema.ResourceData) bool {
+	// Only suppress if the resource already exists (has an ID) and ignore_resize_drift is enabled
+	if d.Id() != "" && d.Get("ignore_resize_drift").(bool) {
+		return true
+	}
+	return false
+}
+
 func ResourceCluster() *schema.Resource {
 	return &schema.Resource{
 		CreateContext: resourceClusterCreate,
@@ -75,10 +85,11 @@ func ResourceCluster() *schema.Resource {
 				Type:        schema.TypeString,
 			},
 			"node_count": {
-				Description: "Node count",
-				Required:    true,
-				ForceNew:    true,
-				Type:        schema.TypeInt,
+				Description:      "Node count",
+				Required:         true,
+				ForceNew:         true,
+				Type:             schema.TypeInt,
+				DiffSuppressFunc: suppressResizeDrift,
 			},
 			"byoa_id": {
 				Description: "BYOA credential ID (only for AWS)",
@@ -101,10 +112,11 @@ func ResourceCluster() *schema.Resource {
 				Default:     "only_rmw_uses_lwt",
 			},
 			"node_type": {
-				Description: "Instance type of a node",
-				Required:    true,
-				ForceNew:    true,
-				Type:        schema.TypeString,
+				Description:      "Instance type of a node",
+				Required:         true,
+				ForceNew:         true,
+				Type:             schema.TypeString,
+				DiffSuppressFunc: suppressResizeDrift,
 			},
 			"node_dns_names": {
 				Description: "Cluster nodes DNS names",
@@ -188,6 +200,12 @@ func ResourceCluster() *schema.Resource {
 				ForceNew:    true,
 				Type:        schema.TypeInt,
 				Default:     3,
+			},
+			"ignore_resize_drift": {
+				Description: "When true, Terraform will ignore differences in node_count and node_type between the configuration and the actual cluster state. This is useful when clusters are resized outside of Terraform (e.g., via the ScyllaDB Cloud console) and you want to prevent Terraform from detecting drift.",
+				Optional:    true,
+				Type:        schema.TypeBool,
+				Default:     false,
 			},
 		},
 	}
