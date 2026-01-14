@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.3.0](https://github.com/vetric-io/terraform-provider-scylladbcloud/compare/v1.2.1...v1.3.0) (2026-01-14)
+
+
+### Features
+
+* **cluster:** add ignore_resize_drift option to suppress drift detection ([#16](https://github.com/vetric-io/terraform-provider-scylladbcloud/issues/16)) ([b757434](https://github.com/vetric-io/terraform-provider-scylladbcloud/commit/b757434a62a124b389b880967c400bb6baa622f3))
+
 ## [1.2.1](https://github.com/vetric-io/terraform-provider-scylladbcloud/compare/v1.2.0...v1.2.1) (2025-12-01)
 
 
