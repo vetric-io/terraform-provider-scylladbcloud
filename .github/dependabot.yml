@@ -4,13 +4,7 @@ updates:
   directory: /
   schedule:
     interval: weekly
-  assignees:
-  - charconstpointer
-  - adambabik
 - package-ecosystem: gomod
   directory: /
   schedule:
     interval: weekly
-  assignees:
-  - charconstpointer
-  - adambabik
