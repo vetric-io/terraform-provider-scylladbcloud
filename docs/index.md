@@ -163,6 +163,13 @@ resource "scylladbcloud_allowlist_rule" "office" {
 }
 ```
 
+## Limitation
+
+The provider deletes and recreates the cluster:
+
+* When scaling up or down.
+* If the ``node_type`` property is changed.
+
 ## Useful Links
 
 - [GitHub Repository](https://github.com/vetric-io/terraform-provider-scylladbcloud)

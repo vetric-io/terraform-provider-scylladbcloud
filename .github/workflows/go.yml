@@ -8,45 +8,36 @@ on:
     branches:
     - "main"
 
+permissions:
+  contents: read
+
 jobs:
   lint:
     runs-on: ubuntu-latest
     name: lint
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-go@v5
+      - uses: actions/checkout@v6
+      - uses: actions/setup-go@v6
         with:
           go-version-file: 'go.mod'
           cache: true
       - run: go build -v ./...
-      # TODO(rjeczalik): Remove (#104)
-      - uses: scylladb/goimports-action@v1.0.3
+      - uses: golangci/golangci-lint-action@v9
         with:
-          goimports-path: './'
-      # TODO(rjeczalik): Remove (#104)
-      - uses: scylladb/gofmt-action@v1.0.5
-        with:
-          gofmt-path: './'
-          gofmt-flags: '-l -d'
-      - uses: golangci/golangci-lint-action@v6
-        with:
-          version: v1.62.2
-      - run: go test -v -race ./...
-      - name: Verify generated docs are up-to-date
-        run: |
-          go generate ./...
-          git diff --exit-code docs/ || (echo "Docs are out of date. Run 'go generate ./...' and commit the changes." && exit 1)
-  test-build:
+          version: v2.7
+          install-only: true
+      - run: make lint
+  test-and-build:
     strategy:
       matrix:
         go: [ "stable" ]
         os: [ macos-latest, windows-latest, ubuntu-latest ]
-    name: test-build
+    name: test-and-build
     needs: lint
     runs-on: ${{ matrix.os }}
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-go@v5
+      - uses: actions/checkout@v6
+      - uses: actions/setup-go@v6
         with:
           go-version: stable
       - run: |
