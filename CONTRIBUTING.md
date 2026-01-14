@@ -13,11 +13,43 @@ We welcome contributions to this repository. Here are some guidelines to follow 
 
 - Make sure your code follows the [Effective Go](https://golang.org/doc/effective_go.html).
 - Run the tests and make sure they pass before submitting your changes.
-- Make sure you ran linters before submitting your code:
-  - `goimports -w ./`
-  - `gofmt -s -w ./`
-  - `golangci-lint run ./...`
+- Make sure you ran linters before submitting your code: `make lint`
 - Create a pull request, follow the PR template to fill the description.
+
+## Development Setup
+
+After cloning the repository, install Git hooks to automatically run checks before commits:
+
+```bash
+make install-hooks
+```
+
+This installs [lefthook](https://github.com/evilmartians/lefthook) hooks that will:
+- **pre-commit**: Format code with gofumpt, run golangci-lint, verify the build, and ensure go.mod is tidy
+- **commit-msg**: Validate commit messages follow [Conventional Commits](https://www.conventionalcommits.org/) format (requires [commitlint](https://commitlint.js.org/))
+- **pre-push**: Run tests with race detector
+
+To run hooks manually without committing:
+
+```bash
+make run-hooks
+```
+
+To uninstall hooks:
+
+```bash
+make uninstall-hooks
+```
+
+### Optional: Commit Message Validation
+
+For local commit message validation, install commitlint:
+
+```bash
+npm install -g @commitlint/cli @commitlint/config-conventional
+```
+
+Without commitlint installed, commits will still work but messages won't be validated locally (they are validated in CI).
 - The maintainers will review your pull request and may request changes or ask questions.
     - <details><summary>The `git log` of you PR is also a subject of review, and you could be asked to fix it by squashing with a meaningful message or simply amending commits in the way that you see it fit.</summary>
 

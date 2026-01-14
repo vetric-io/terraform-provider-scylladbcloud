@@ -1,0 +1,44 @@
+# Lefthook configuration for Git hooks
+# https://github.com/evilmartians/lefthook
+#
+# Install hooks by running: make install-hooks
+# Or directly: go tool lefthook install
+
+# Skip output for excluded commands
+skip_output:
+  - meta
+  - summary
+
+pre-commit:
+  parallel: true
+  commands:
+    gofumpt:
+      glob: "*.go"
+      run: go tool gofumpt -l -d -e {staged_files}
+      stage_fixed: true
+    golangci-lint:
+      glob: "*.go"
+      run: golangci-lint run --new-from-rev=HEAD {staged_files}
+    go-build:
+      run: go build -v ./...
+    go-mod-tidy:
+      run: go mod tidy && git diff --exit-code go.mod go.sum
+
+commit-msg:
+  commands:
+    commitlint:
+      # Runs commitlint if available (requires Node.js)
+      # Install: npm install -g @commitlint/cli @commitlint/config-conventional
+      run: |
+        if command -v commitlint &> /dev/null; then
+          commitlint --edit {1}
+        else
+          echo "commitlint not found, skipping commit message validation"
+          echo "Install with: npm install -g @commitlint/cli @commitlint/config-conventional"
+        fi
+
+pre-push:
+  parallel: true
+  commands:
+    go-test:
+      run: go test -race ./...
