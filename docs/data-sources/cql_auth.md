@@ -36,6 +36,10 @@ output "scylladbcloud_cql_password" {
     sensitive = true
 	value = data.scylladbcloud_cql_auth.example.password
 }
+
+output "scylladbcloud_cql_cluster_name" {
+  value = data.scylladbcloud_cql_auth.example.cluster_name
+}
 ```
 
 ### Using with a Cluster Resource
@@ -112,7 +116,6 @@ This data source supports the following arguments:
 This data source exports the following attributes:
 
 * `id` - A unique identifier for this data source instance.
-* `cluster_name` - The name of the cluster.
 * `seeds` - Comma-separated list of seed node addresses. These are the contact points for establishing a connection to the cluster. Returns DNS names or IP addresses depending on the `dns` argument.
 * `username` - The CQL username for authentication. This is typically the admin user created with the cluster.
 * `password` - (Sensitive) The CQL password for authentication. Handle this value securely.
@@ -149,3 +152,4 @@ session = cluster.connect()
 * [scylladbcloud_cluster](../resources/cluster) - Create and manage clusters
 * [scylladbcloud_vpc_peering](../resources/vpc_peering) - Set up VPC peering for private connectivity
 * [scylladbcloud_allowlist_rule](../resources/allowlist_rule) - Configure IP allowlist for cluster access
+

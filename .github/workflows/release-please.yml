@@ -43,6 +43,8 @@ jobs:
         with:
           app-id: ${{ vars.G_RELEASES_APP_ID }}
           private-key: ${{ steps.decode.outputs.private-key }}
+          owner: ${{ github.repository_owner }}
+          repositories: ${{ github.event.repository.name }}
 
       - uses: googleapis/release-please-action@v4
         with:
