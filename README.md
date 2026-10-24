@@ -2,6 +2,8 @@ terraform-provider-scylladbcloud
 ================================
 
 ## ⚠️ This is NOT the official ScyllaDB Cloud Terraform Provider
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fvetric-io%2Fterraform-provider-scylladbcloud.svg?type=shield)](https://app.fossa.com/projects/git%2Bgithub.com%2Fvetric-io%2Fterraform-provider-scylladbcloud?ref=badge_shield)
+
 
 > **This is a fork maintained by [Vetric](https://github.com/vetric-io) with additional features and enhancements.**
 > 
@@ -166,3 +168,6 @@ For debugging / troubleshooting please see [Terraform debugging documentation](h
 
 Apache-2.0 - See [LICENSE.md](LICENSE.md) for details.
 
+
+
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fvetric-io%2Fterraform-provider-scylladbcloud.svg?type=large)](https://app.fossa.com/projects/git%2Bgithub.com%2Fvetric-io%2Fterraform-provider-scylladbcloud?ref=badge_large)
