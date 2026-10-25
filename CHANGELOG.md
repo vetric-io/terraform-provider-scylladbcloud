@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.3.1](https://github.com/vetric-io/terraform-provider-scylladbcloud/compare/v1.3.0...v1.3.1) (2026-10-25)
+
+
+### Bug Fixes
+
+* **release:** ship licence, modification and third-party notices ([#20](https://github.com/vetric-io/terraform-provider-scylladbcloud/issues/20)) ([b623af4](https://github.com/vetric-io/terraform-provider-scylladbcloud/commit/b623af4be05c761e9454a594afe839aea9ad4d9c))
+
 ## [1.3.0](https://github.com/vetric-io/terraform-provider-scylladbcloud/compare/v1.2.1...v1.3.0) (2026-01-14)
 
 
