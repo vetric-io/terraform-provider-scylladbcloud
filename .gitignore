@@ -1,5 +1,6 @@
 # binary
 /dist
+/bin
 /terraform-provider-scylladbcloud
 
 # editor config

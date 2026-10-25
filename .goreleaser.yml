@@ -10,6 +10,7 @@ version: 2
 before:
   hooks:
     - go mod tidy
+    - make notices
 builds:
 - env:
     # goreleaser does not work with CGO, it could also complicate
@@ -38,6 +39,13 @@ builds:
 archives:
 - format: zip
   name_template: '{{ .ProjectName }}_{{ .Version }}_{{ .Os }}_{{ .Arch }}'
+  # Licence, modification and third-party notices travel with every binary.
+  files:
+    - LICENSE.md
+    - MODIFICATIONS.md
+    - THIRD_PARTY_NOTICES
+    - CHANGELOG.md
+    - README.md
 checksum:
   name_template: '{{ .ProjectName }}_{{ .Version }}_SHA256SUMS'
   algorithm: sha256

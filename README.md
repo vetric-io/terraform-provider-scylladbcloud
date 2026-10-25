@@ -166,3 +166,5 @@ For debugging / troubleshooting please see [Terraform debugging documentation](h
 
 Apache-2.0 - See [LICENSE.md](LICENSE.md) for details.
 
+The files Vetric changed are listed in [MODIFICATIONS.md](MODIFICATIONS.md). Notices for the third-party Go modules compiled into the release binaries are in [THIRD_PARTY_NOTICES](THIRD_PARTY_NOTICES).
+
