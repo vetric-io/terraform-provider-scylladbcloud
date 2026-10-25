@@ -27,6 +27,10 @@ jobs:
           version: v2.7
           install-only: true
       - run: make lint
+      - name: THIRD_PARTY_NOTICES is up to date
+        run: |
+          make notices
+          git diff --exit-code THIRD_PARTY_NOTICES
   test-and-build:
     strategy:
       matrix:

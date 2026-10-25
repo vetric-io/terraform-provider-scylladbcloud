@@ -1,3 +1,7 @@
+// Modified by Vetric Technology Ltd. from the original ScyllaDB file
+// (https://github.com/scylladb/terraform-provider-scylladbcloud, Apache-2.0).
+// See MODIFICATIONS.md.
+
 package cluster
 
 import (
